@@ -1,0 +1,467 @@
+
+\documentclass{article}
+\usepackage[landscape]{geometry}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{esint}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{amsmath,amssymb}
+
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+
+\usepackage{mleftright}
+
+\DeclareMathOperator{\myRe}{Re}
+\newcommand{\myReCommand}[2][]{\ensuremath{\myRe^{#1}\mleft(#2\mright)}}
+
+\DeclareMathOperator{\mydet}{det}
+\newcommand{\mydetCommand}[2][]{\ensuremath{\mydet^{#1}\mleft(#2\mright)}}
+
+\DeclareMathOperator{\mytr}{tr}
+\newcommand{\mytrCommand}[2][]{\ensuremath{\mytr^{#1}\mleft(#2\mright)}}
+
+\makeatletter
+
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+
+\makeatother
+
+\title{NLA Exam Cheat Sheet}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+
+\advance\topmargin-.8in
+\advance\textheight3in
+\advance\textwidth3in
+\advance\oddsidemargin-1.5in
+\advance\evensidemargin-1.5in
+\parindent0pt
+\parskip2pt
+\newcommand{\hr}{\centerline{\rule{3.5in}{1pt}}}
+%\colorbox[HTML]{e4e4e4}{\makebox[\textwidth-2\fboxsep][l]{texto}
+\begin{document}
+
+\begin{center}{\huge{\textbf{NLA Exam Cheat Sheet}}}\\
+\end{center}
+\begin{multicols*}{3}
+
+\tikzstyle{mybox} = [draw=black, fill=white, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=10pt]
+\tikzstyle{fancytitle} =[fill=black, text=white, font=\bfseries]
+
+%------------ General Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \small{
+        \begin{tabular}{lp{4cm} l}
+            $\mytr(\mathbf{A}) = \sum_{i}^{n} a_{ii}$ & $ \mytr(\mathbf{A}\mathbf{B}) = \mytr(\mathbf{B}\mathbf{A})$ \\
+            $( \mathbf{A} \mathbf{B} ) ^ \top = \mathbf{B}^\top \mathbf{A}^\top$ & $ \overline{( \mathbf{A} \mathbf{B} )} = \overline{\mathbf{A}} \cdot \overline{\mathbf{B}}$ \\
+	\end{tabular}}
+    
+    $ \left[ \begin{array}{cc}
+    a & b \\
+    c & d
+    \end{array} \right] ^ {-1} = \cfrac{1}{ad-bc} \left[ \begin{array}{cc}
+    d & -b \\
+    -c & a
+    \end{array} \right]$ \\
+    $(x|y) = y^\mathsf{T}x, (\mathbf{A}x|y) = (x|\mathbf{A}^\mathbf{T} y)$ dot product \\
+    $(\mathbf{A}x|x) \ge 0$ positive semi-definite \\
+    $(\mathbf{A}x|x) > 0$ positive definite \\
+    \small{
+    	\begin{tabular}{lp{4cm} l}
+        $A^n = SD^nS^{-1}$, \textit{D is the diag. of A}
+	\end{tabular}}
+    \end{minipage}
+};
+%------------ General Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {General};
+\end{tikzpicture}
+
+%------------ Eigenvalues & eigenvectors Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    $\mathbf{A} \mathbf{v_i} = \lambda_i \mathbf{v_i}$, $(\lambda_i \mathbf{I} - \mathbf{A}) \mathbf{v_i} = 0$ \\
+    $ \sigma (\mathbf{A}) = \left \{ \lambda_i : \kappa_{\mathbf{A}}(\lambda_i) = 0\right \}$ matrix spectre \\ 
+    $r(\mathbf{A}) = max \left \{ |\lambda_i| : \kappa_{\mathbf{A}}(\lambda_i) = 0\right \}$ spectral radius \\
+    $r(\mathbf{A}) < 1 \implies k \xrightarrow{} \infty: \mathbf{A}^k \xrightarrow{} 0$ \\
+    $r(\mathbf{A}) < 1 \implies (\mathbf{I} - \mathbf{A})^{-1} = \mathbf{I} + \mathbf{A} + \mathbf{A}^2 + ... $ \\
+     - Neumann series, converges
+    \end{minipage}
+};
+%------------ Eigenvalues & eigenvectors Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Eigenvalues \& eigenvectors};
+\end{tikzpicture}
+
+%------------ Gram-Schmidt Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \begin{align*}
+  v_{1} &= x_{1} \\
+  v_{2} &= x_{2} - \frac{\langle x_2, v_1\rangle}{||v_{1}||^2}v_{1}\\
+  &\shortvdotswithin{=} 
+  v_{n} &= x_{m} - \sum_{k=1}^{m-1} \frac{\langle x_{m},v_{k} \rangle}{||v_{k}||^{2}}v_{k} 
+    \end{align*}
+    \end{minipage}
+};
+%------------ Gram-Schmidt Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Gram-Schmidt};
+\end{tikzpicture}
+
+%------------ Systems of ODE Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \small{
+    	\begin{tabular}{lp{4cm} l}
+        $\vec{x}' = A\vec{x}$ \\
+		\textit{A is diagonalizable} & $\vec{x}(t)=a_{1}e^{\lambda_1 t}\vec{v_1}+\cdots+ a_{n}e^{\lambda_n t}\vec{v_n}$ \\ \hline
+        \textit{A is not diagonalizable} & $\vec{x}(t)=a_1e^{\lambda_1 t}\vec{v_1} + a_2e^{\lambda t}(\vec{w} + t\vec{v} )$ \\
+        & where $(A - \lambda I)\vec{w} = \vec{v} $\\
+        & $\vec{v}$ is an Eigenvector w/ value $\lambda$ \\
+        & i.e. $\vec{w}$ is a generalized Eigenvector \\ \hline
+        $\vec{x}' = A\vec{x} + \vec{B}$ &Solve $y_h$ \\
+        & $\vec{x_1} = e^{\lambda_1t}\vec{v_1}, \vec{x_2} = e^{\lambda_2t}\vec{v_2}$ \\ 			& $\vec{X} = [\vec{x_1},\vec{x_2}]$ \\
+        & $\vec{X}\vec{u}'=\vec{B}$ \\
+        & $y_p = \vec{X}\vec{u}$ \\
+        & $y = y_h + y_p$
+	\end{tabular}}
+    \end{minipage}
+};
+%------------ Systems of ODE Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Jordan form};
+\end{tikzpicture}
+\\
+\\
+\\
+\\
+%------------ Hamilton-Cayley Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \small{
+    	\begin{tabular}{lp{4cm} l}
+        Every square matrix satisfies its own characteristic \\ 
+        equation: $\mathbf{A} \in \mathcal{M}_n, \kappa_{\mathbf{A}}(\mathbf{A}) = 0$ \\
+	\end{tabular}}
+    \end{minipage}
+};
+%------------ Hamilton-Cayley Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Hamilton-Cayley};
+\end{tikzpicture}
+
+%------------ Gershgorin & Cassini Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \textbf{Gershgorin's circles} \\
+     - each circle contains 1 eigenvalue \\
+    $$D_i = {z \in \mathbb{C}: |z - a_{ii}| < r_i, r_i = \sum_{j \neq i}^{n}|a_{ij}|}$$
+    
+    \hline \hfill
+        
+    \textbf{Cassini's ovals} \\
+     - each oval contains 1 eigenvalue \\
+     - smaller area than circles \\
+    $$D_{ij} = {z \in \mathbb{C}: |z - a_{ii}| \cdot |z - a_{jj}| < r_i r_j}$$
+    \end{minipage}
+};
+%------------ Gershgorin & Cassini Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Gershgorin \& Cassini};
+\end{tikzpicture}
+
+
+%------------ Matrix types Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    
+    \small{
+        \begin{tabular}{lp{5cm} l}
+            Regular & $\mydet(\mathbf{A}) \neq 0$ \\
+            Symmetric & $\lambda_i \in \mathbb{R}, \lambda_i \neq \lambda_j \implies v_i \perp v_j$ \\
+             - spectral theorem & $\mathbf{S}^\mathsf{T}\mathbf{A}\mathbf{S} = \left[ \begin{array}{ccc}
+                \lambda_1 &  &  \\
+                 & \ddots &  \\
+                 &  & \lambda_n \\
+                \end{array} \right]$  \\ 
+            Orthogonal & $\mathbf{A}^\mathsf{T} = \mathbf{A}^{-1}, \mydet(\mathbf{A}) = \pm 1$ \\
+             & $\mathbf{A}^\mathsf{T}\mathbf{A} = \mathbf{A}\mathbf{A}^\mathsf{T} = \mathbf{I}$ \\
+            Hermitian & $ a_{ij} = \overline{a_{ji}}$ \\
+             & $\mathbf{A}^\mathsf{H} = \mathbf{A}^{\dag} = \mathbf{A}^* = \overline{\mathbf{A}^\mathsf{T} $ \\
+            Stable & $\myRe \lambda < 0, \forall \lambda \in \sigma(\mathbf{A})$ \\
+             & $t \xrightarrow{} \infty: e^{\mathbf{A}t} \xrightarrow{} 0$ \\
+            Diag. dominant & $ |a_{ii}| > r_i, \forall i$ \\
+        \end{tabular}}
+    \end{minipage}
+};
+%------------ Martix types Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Matrix types};
+\end{tikzpicture}
+
+%------------ Norms Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    
+    \small{
+        \begin{tabular}{lp{5cm} l}
+            p-norm & $||x||_p = \left ( \sum_{i=1}^{n} x_i^p \right ) ^{1/p}$ \\
+            Euclidean & $p = 2$ \\
+            Operator & $||\mathbf{A}|| = \sup_{x \neq 0} \frac{||\mathbf{A}x||}{||x||}$ \\ 
+            - if orthogonal & $||\mathbf{S}x|| = ||x||$ \\
+            Spectral & $||\mathbf{A}||_2 = \sup_{x \neq 0} \frac{||\mathbf{A}x||_2}{||x||_2}$ \\
+             & $||\mathbf{A}||_2 = r(\mathbf{A}^{*}\mathbf{A})^{1/2}$ \\
+            Frobenius & $||\mathbf{A}||_f = \left ( \sum_i \sum_j |a_{ij}|^2 \right ) ^{1/2}$ \\
+             & $||\mathbf{A}||_f^2 = \mytr(\mathbf{A} \mathbf{A}^{\mathsf{T}})  = \mytr(\mathbf{A}^{\mathsf{T}} \mathbf{A})$ \\
+            A-norm & $||z||_A = \sqrt{z^{*}\mathbf{A}z} $ \\
+            $||AB|| \le ||A|| \cdot ||B||$ & $d(A, B) = ||A-B||$ \\
+        \end{tabular}}
+    \end{minipage}
+};
+%------------ Norms Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Norms};
+\end{tikzpicture}
+
+%------------ Diagonalization Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \small{
+    	\begin{tabular}{lp{4cm} l}
+        Diagonalizable iff there exists an ordered basis \\
+        consisting of its eigenvectors: \\ 
+         - find eigenvalues/eigenvectors \\
+         - $\mathbf{T} = [v_i]$, $\mathbf{A}' = [\lambda_i]$ \\
+	\end{tabular}}
+    \end{minipage}
+};
+%------------ Diagonalization Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Diagonalization};
+\end{tikzpicture}
+
+%------------ Jacobi Content ---------------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \textbf{Convergence} \\
+    $\mathbf{A} = \mathbf{L}+\mathbf{D}+\mathbf{U}, \mathbf{A}x = \mathbf{b}$ \\
+    $(\mathbf{L}+\mathbf{D}+\mathbf{U}) x = \mathbf{b}$ \\
+    $\mathbf{D}x = -(\mathbf{L}+\mathbf{D}^{-1}\mathbf{U})x + \mathbf{b}$ \\
+    $x = -\mathbf{D}^{-1}(\mathbf{L}+\mathbf{U})x + \mathbf{D}^{-1}\mathbf{b}$ \\
+    $x = \mathbf{T}x + \mathbf{b}', x^0 = 0, x^1 = \mathbf{b}'$ \\
+    $x^2 = (\mathbf{T} + \mathbf{I}) \mathbf{b}', x^3 = (\mathbf{T}^2 + \mathbf{T} + \mathbf{I}) \mathbf{b}'$ \\
+    Induction $x^k = (\mathbf{T}^{k-1} + ... + \mathbf{T} + \mathbf{I}) \mathbf{b}'$ \\
+    Converges if $r \left ( \mathbf{D}^{-1}(\mathbf{L}+\mathbf{U}) \right ) < 1$ (Neumann series) \\
+     - diagonally dominant converges\\
+    \hline \hfill
+\begin{verbatim}
+    n = size(A);
+    residuals = zeros(1, n_iter);
+    x = x_0;
+    for i = 1 : n_iter
+        x_next = x;
+        for j = 1 : n
+            x_next(j, 1) = (
+                b(j, 1) 
+                - A(j, [1:j-1, j+1:n]) 
+                    * x([1:j-1, j+1:n], 1)
+                ) / A(j, j);
+        end
+        x = x_next;
+        residuals(1, i) = norm(A * x - b);
+    end
+    solution = x;
+\end{verbatim}
+    \end{minipage}
+};
+%------------ Jacobi Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Jacobi};
+\end{tikzpicture}
+
+%------------ Gauss-Seidel Content ---------------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \textbf{Convergence} \\
+    $x = -\mathbf{D}^{-1}(\mathbf{L}+\mathbf{U})x + \mathbf{D}^{-1}\mathbf{b}$ \\
+    $x = -\mathbf{D}^{-1}\mathbf{L}x -\mathbf{D}^{-1}\mathbf{U}x + \mathbf{D}^{-1}\mathbf{b}$ \\
+    $x^{k+1} = -\mathbf{D}^{-1}\mathbf{L}x^{k+1} -\mathbf{D}^{-1}\mathbf{U}x^k + \mathbf{b}'$ \\
+    $(\mathbf{I} + \mathbf{D}^{-1}\mathbf{L})x^{k+1} = -\mathbf{D}^{-1}\mathbf{U}x^k + \mathbf{b}'$ \\
+    $(\mathbf{I} + \mathbf{D}^{-1}\mathbf{L})^{-1} \mathbf{D}^{-1} = \left [ \mathbf{D}(\mathbf{I} + \mathbf{D}^{-1}\mathbf{L})\right ] ^{-1}$ \\
+    $ = (\mathbf{D} + \mathbf{L})^{-1}, x = \mathbf{T}x + \mathbf{b}''$ \\
+    $\mathbf{T} = -(\mathbf{D}+\mathbf{L})^{-1} \mathbf{U}, \mathbf{b}'' = (\mathbf{D}+\mathbf{L})^{-1} \mathbf{b}'$ \\
+    Converges if $r \left ( (\mathbf{D}+\mathbf{L})^{-1} \mathbf{U}) \right ) < 1$ (Neumann series) \\
+     - diagonally dominant converges\\
+    \hline \hfill
+\begin{verbatim}
+    n = size(A);
+    residuals = zeros(1, n_iter);
+    x = x_0;
+    for i = 1 : n_iter
+        x_next = x;
+        for j = 1 : n
+            x_next(j, 1) = (
+                b(j, 1) 
+                - A(j, 1 : j - 1) 
+                    * x_next(1 : j-1, 1) 
+                - A(j, j+1 : n) 
+                    * x(j+1 : n, 1)
+                ) / A(j, j);
+        x = x_next;
+        residuals(1, i) = norm(A * x - b);
+    solution = x;
+\end{verbatim}
+    \end{minipage}
+};
+%------------ Gauss-Seidel Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Gauss-Seidel};
+\end{tikzpicture}
+
+%------------ SVD Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    $$\mathbf{A} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^{*}$$ \\
+    $\mathbf{U} = [\mathbf{u}_i]$, where $\mathbf{u}_i$ is eigenvector of $\mathbf{A}\mathbf{A}^\mathsf{T}$ \\
+    $\mathbf{V} = [\mathbf{v}_i]$, where $\mathbf{v}_i$ is eigenvector of $\mathbf{A}^\mathsf{T}\mathbf{A}$ \\
+    $\mathbf{\Sigma} =  \left[ \begin{array}{ccc}
+    \sigma_1 & & \\
+     & \ddots & \\
+     & & \sigma_r
+    \end{array} \right]$ \\
+    $\sigma_i^2$ is eigenvalue of $\mathbf{A}\mathbf{A}^\mathsf{T}$ or $\mathbf{A}^\mathsf{T}\mathbf{A}$ \\
+    \end{minipage}
+};
+%------------ SVD Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {SVD};
+\end{tikzpicture}
+
+%------------ Givens Content ---------------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+
+\begin{verbatim}
+[m, n] = size(A);
+Q = eye(m);
+R = A;
+for i = 1 : n
+    for j = i + 1 : m
+        x1 = R(i, i);
+        x2 = R(j, i);
+        if x2 != 0
+            c = x1 / sqrt(x1^2 + x2^2);
+            s = - x2 / sqrt(x1^2 + x2^2);
+            G = eye(m);
+            G(i, i) = c;
+            G(j, j) = c;
+            G(i, j) = -s;
+            G(j, i) = s;
+            R = G * R
+            Q = Q * transpose(G)
+\end{verbatim}
+    \end{minipage}
+};
+%------------ Givens Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Givens rotations};
+\end{tikzpicture}
+
+%------------ Householder Content ---------------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    $ \mathbf{H} \mathbf{a} = \mathbf{b}, \mathbf{H} \mathbf{b} = \mathbf{a}, \mathbf{u}||\mathbf{a}-\mathbf{b}|| = \mathbf{a} - \mathbf{b} $\\
+    $ \mathbf{H} = \mathbf{I} - 2 \mathbf{u}\mathbf{u}^{*}$ \\
+    $ \mathbf{H}\mathbf{H}^\mathsf{T} = \mathbf{H}^\mathsf{T}\mathbf{H} = \mathbf{I}$ orthogonal \\
+    \hline \hfill
+\begin{verbatim}
+[m, n] = size(A);
+Q = eye(m);
+R = A;
+
+for i = 1 : n
+    u = R(:, i);
+    gamma = sqrt(sum(R(i:m, i).^2));
+    if i > 1
+        u(1:i-1, :) = 0;
+    u(i) = R(i, i) + sign(R(i, i)) * gamma;
+    u = u / sqrt(2 * gamma * 
+                 (gamma + abs(R(i, i))));
+    H = I - 2 * (u * u');
+    Q = Q * H;
+    R = H * R;
+\end{verbatim}
+    \end{minipage}
+};
+%------------ Householder Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Householder};
+\end{tikzpicture}
+
+%------------ Krylov Subspaces Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    $$\mathcal{K}_r(\mathbf{A}, \mathbf{b}) = span \{ \mathbf{b}, \mathbf{A}\mathbf{b}, \mathbf{A}^2\mathbf{b}, ... , \mathbf{A}^{r-1}\mathbf{b} \}$$ \\
+
+    \hline \hfill
+    
+    \textbf{Minimal residual method}
+
+    $$\alpha_k = \frac{r_k^{*}r_k}{r_k^{*} \mathbf{A} r_k}$$
+
+    \hline \hfill
+    
+    \textbf{Conjugate gradient method}
+
+    $$\alpha_k = \frac{d_k^{*}r_k}{d_k^{*} \mathbf{A} r_k} = \frac{(d_k|r_k)}{(Ad_k|r_k)}$$
+
+    \end{minipage}
+};
+%------------ Krylov Subspaces Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Krylov subspaces};
+\end{tikzpicture}
+
+%------------ SOR Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    $$\mathbf{A} = \mathbf{M} + \mathbf{N}, \quad \mathbf{M} = \frac{1}{\omega}\mathbf{D}+\mathbf{U},  \quad \mathbf{N} = \frac{\omega - 1}{\omega}\mathbf{D}+\mathbf{U}$$
+    $$\Tilde{\mathbf{L}} = \mathbf{D}^{-1} \mathbf{L}, \quad \Tilde{\mathbf{U}} = \mathbf{D}^{-1} \mathbf{U} $$
+    $$C_{SOR(\omega)} = (\mathbf{I}+\omega \Tilde{\mathbf{L}})^{-1} ((1 - \omega)\mathbf{I}-\omega \Tilde{\mathbf{U}})$$
+    $$r(C_{SOR(\omega)}) >= |\omega - 1|, 0 < \omega < 2$$
+    \end{minipage}
+};
+%------------ SOR Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {SOR};
+\end{tikzpicture}
+
+%------------ Rayleigh Quotient Content ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    $$\mathcal{R}(\mathbf{A}, \mathbf{x}) = \frac{\mathbf{x}^{*}\mathbf{A}\mathbf{x}}{\mathbf{x}^{*}\mathbf{x}}$$ \\
+    $$\mathcal{R}(\mathbf{A}, c\mathbf{x}) = \mathcal{R}(\mathbf{A}, \mathbf{x})$$
+    \end{minipage}
+};
+%------------ Rayleigh Quotient Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Rayleigh quotient};
+\end{tikzpicture}
+
+\end{multicols*}
+\end{document}
+
+
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
